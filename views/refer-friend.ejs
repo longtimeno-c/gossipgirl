@@ -1,0 +1,88 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 class="text-center mb-4"><i class="fas fa-user-plus me-2"></i> Refer a Friend</h2>
+                <p class="text-center mb-4">Think someone should join our exclusive Somerset circle? Enter their email below to send them an invitation.</p>
+                
+                <div class="alert alert-info mb-4">
+                    <i class="fas fa-info-circle me-2"></i> <strong>Note:</strong> All friend referrals will be reviewed by our admins before invitations are sent. Only the most suitable candidates will receive an invitation to join our exclusive circle.
+                </div>
+                
+                <form id="referForm" class="needs-validation" data-no-spinner="true" novalidate>
+                    <div class="mb-3">
+                        <label for="friendEmail" class="form-label">Friend's Email</label>
+                        <input type="email" class="form-control" id="friendEmail" name="email" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid email address.
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-dark">
+                            <i class="fas fa-paper-plane me-2"></i> Submit Referral
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const referForm = document.getElementById('referForm');
+        
+        referForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validate the form
+            if (!referForm.checkValidity()) {
+                e.stopPropagation();
+                referForm.classList.add('was-validated');
+                return;
+            }
+            
+            const email = document.getElementById('friendEmail').value;
+            
+            try {
+                const response = await fetch('/refer-friend', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Referral Submitted!',
+                        text: 'Your friend\'s email has been sent to our admins for review. If approved, they will receive an invitation to join our exclusive circle.',
+                        icon: 'success',
+                        confirmButtonColor: '#2C5530'
+                    });
+                    
+                    // Reset the form
+                    referForm.reset();
+                    referForm.classList.remove('was-validated');
+                } else {
+                    Swal.fire({
+                        title: 'Oops!',
+                        text: data.message || 'Something went wrong. Please try again.',
+                        icon: 'error',
+                        confirmButtonColor: '#2C5530'
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    title: 'Oops!',
+                    text: 'An error occurred while processing your request.',
+                    icon: 'error',
+                    confirmButtonColor: '#2C5530'
+                });
+            }
+        });
+    });
+</script> 

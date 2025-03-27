@@ -1,0 +1,643 @@
+<%- contentFor('body') %>
+<div class="admin-dashboard fade-in">
+    <div class="row mb-4">
+        <div class="col">
+            <h2><i class="fas fa-crown me-2"></i>Admin Dashboard</h2>
+            <p class="text-muted">Welcome back, <%= user.username %>!</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="post-card">
+                <h3 class="mb-4"><i class="fas fa-newspaper me-2"></i>Recent Posts</h3>
+                <div class="post-list">
+                    <% posts.forEach(post => { %>
+                        <div class="post-item">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5><%= post.title %></h5>
+                                    <p class="text-muted">By <%= post.author %> • <%= new Date(post.timestamp).toLocaleDateString() %></p>
+                                    <div class="reactions-info">
+                                        <span><i class="fas fa-heart"></i> <%= post.reactions && post.reactions.heart ? post.reactions.heart.length : 0 %></span>
+                                        <span><i class="fas fa-surprise"></i> <%= post.reactions && post.reactions.shocked ? post.reactions.shocked.length : 0 %></span>
+                                        <span><i class="fas fa-kiss-wink-heart"></i> <%= post.reactions && post.reactions.xoxo ? post.reactions.xoxo.length : 0 %></span>
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-dark edit-post" data-post-id="<%= post.id %>" 
+                                            data-title="<%= post.title %>" 
+                                            data-content="<%= post.content.replace(/\n/g, '\\n').replace(/"/g, '&quot;') %>"
+                                            data-heart-count="<%= post.reactions && post.reactions.heart ? post.reactions.heart.length : 0 %>"
+                                            data-shocked-count="<%= post.reactions && post.reactions.shocked ? post.reactions.shocked.length : 0 %>"
+                                            data-xoxo-count="<%= post.reactions && post.reactions.xoxo ? post.reactions.xoxo.length : 0 %>">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger delete-post" data-post-id="<%= post.id %>">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="post-card">
+                <h3 class="mb-4"><i class="fas fa-users me-2"></i>User Management</h3>
+                <div class="user-list">
+                    <% users.forEach(user => { %>
+                        <div class="user-item">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5><%= user.username %></h5>
+                                    <p class="text-muted"><%= user.email %></p>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-dark toggle-admin" data-user-id="<%= user.id %>" data-is-admin="<%= user.isAdmin %>">
+                                        <%= user.isAdmin ? 'Remove Admin' : 'Make Admin' %>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger delete-user" data-user-id="<%= user.id %>">
+                                        <i class="fas fa-user-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="post-card">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3><i class="fas fa-envelope-open-text me-2"></i>Invite System</h3>
+                    <button id="send-invites" class="btn btn-gold"><i class="fas fa-paper-plane me-2"></i>Send All Invites</button>
+                </div>
+                
+                <div class="mb-3">
+                    <div class="input-group">
+                        <input type="email" id="invite-email" class="form-control" placeholder="Email address">
+                        <button id="add-invite" class="btn btn-outline-dark">Add</button>
+                    </div>
+                </div>
+                
+                <div class="invite-list">
+                    <% if (invites && invites.length > 0) { %>
+                        <% invites.forEach(invite => { %>
+                            <div class="invite-item" data-invite-id="<%= invite.id %>">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h5><%= invite.email %></h5>
+                                        <p class="text-muted">Added by <%= invite.addedBy %> • <%= new Date(invite.addedAt).toLocaleDateString() %></p>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-danger delete-invite" data-invite-id="<%= invite.id %>">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <div class="alert alert-info">
+                            No invites yet. Add email addresses to invite new users.
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="post-card">
+                <h3 class="mb-4"><i class="fas fa-inbox me-2"></i>Story Submissions</h3>
+                <div class="submissions-list">
+                    <% submissions.forEach(submission => { %>
+                        <div class="submission-item">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5><%= submission.title %></h5>
+                                    <p class="text-muted">Submitted by <%= submission.submitter %> • <%= new Date(submission.timestamp).toLocaleDateString() %></p>
+                                    <div class="submission-content mt-3">
+                                        <%= submission.content %>
+                                    </div>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-outline-success approve-submission" data-submission-id="<%= submission.id %>">
+                                        <i class="fas fa-check"></i> Approve
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-danger reject-submission" data-submission-id="<%= submission.id %>">
+                                        <i class="fas fa-times"></i> Reject
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.post-item, .user-item {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.post-item:last-child, .user-item:last-child {
+    border-bottom: none;
+}
+
+.post-item:hover, .user-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.btn-outline-dark {
+    border-color: var(--gg-dark);
+    color: var(--gg-dark);
+}
+
+.btn-outline-dark:hover {
+    background-color: var(--gg-dark);
+    color: white;
+}
+
+.post-list, .user-list {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.submission-item {
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.5);
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.submission-item:last-child {
+    border-bottom: none;
+}
+
+.submission-content {
+    background: rgba(212, 175, 55, 0.1);
+    padding: 1rem;
+    border-radius: 4px;
+    white-space: pre-line;
+}
+
+.submissions-list {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.reactions-info {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.reactions-info span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.875rem;
+    color: var(--gg-dark);
+}
+
+.modal-fullscreen-md-down .modal-body {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.edit-textarea {
+    min-height: 250px;
+}
+
+.invite-item {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    background: rgba(255,255,255,0.5);
+}
+
+.invite-item:last-child {
+    border-bottom: none;
+}
+
+.invite-item:hover {
+    background: rgba(212, 175, 55, 0.1);
+}
+
+.invite-list {
+    max-height: 350px;
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+
+.btn-gold {
+    background-color: #d4af37;
+    color: white;
+}
+
+.btn-gold:hover {
+    background-color: #c9a227;
+    color: white;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Edit post
+    document.querySelectorAll('.edit-post').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const postId = btn.dataset.postId;
+            const title = btn.dataset.title;
+            const content = btn.dataset.content.replace(/\\n/g, '\n').replace(/&quot;/g, '"');
+            const heartCount = btn.dataset.heartCount;
+            const shockedCount = btn.dataset.shockedCount;
+            const xoxoCount = btn.dataset.xoxoCount;
+            
+            Swal.fire({
+                title: 'Edit Post',
+                width: '80%',
+                html: `
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input type="text" id="title" class="form-control" value="${title}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="content" class="form-label">Content</label>
+                        <textarea id="content" class="form-control edit-textarea">${content}</textarea>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-4">
+                            <label class="form-label"><i class="fas fa-heart text-danger"></i> Heart Reactions</label>
+                            <input type="number" id="heartCount" class="form-control" min="0" value="${heartCount}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label"><i class="fas fa-surprise text-warning"></i> Shocked Reactions</label>
+                            <input type="number" id="shockedCount" class="form-control" min="0" value="${shockedCount}">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label"><i class="fas fa-kiss-wink-heart text-primary"></i> XOXO Reactions</label>
+                            <input type="number" id="xoxoCount" class="form-control" min="0" value="${xoxoCount}">
+                        </div>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonColor: '#d4af37',
+                cancelButtonColor: '#1a1a1a',
+                confirmButtonText: 'Save Changes',
+                customClass: {
+                    container: 'modal-fullscreen-md-down'
+                },
+                didOpen: () => {
+                    document.getElementById('content').focus();
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const data = {
+                        title: document.getElementById('title').value,
+                        content: document.getElementById('content').value,
+                        reactions: {
+                            heart: parseInt(document.getElementById('heartCount').value) || 0,
+                            shocked: parseInt(document.getElementById('shockedCount').value) || 0,
+                            xoxo: parseInt(document.getElementById('xoxoCount').value) || 0
+                        }
+                    };
+                    
+                    fetch(`/admin/posts/${postId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Post updated successfully!', 'success');
+                            // Reload the page to show updated data
+                            location.reload();
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    // Delete post
+    document.querySelectorAll('.delete-post').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const postId = btn.dataset.postId;
+            
+            Swal.fire({
+                title: 'Delete Post?',
+                text: 'This action cannot be undone!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d4af37',
+                cancelButtonColor: '#1a1a1a',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/admin/posts/${postId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Post deleted successfully!', 'success');
+                            btn.closest('.post-item').remove();
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    // Toggle admin status
+    document.querySelectorAll('.toggle-admin').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const userId = btn.dataset.userId;
+            const isAdmin = btn.dataset.isAdmin === 'true';
+            const userItem = btn.closest('.user-item');
+            
+            fetch(`/admin/users/${userId}/toggle-admin`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ isAdmin: !isAdmin })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showToast('User admin status updated!', 'success');
+                    btn.dataset.isAdmin = (!isAdmin).toString();
+                    btn.textContent = !isAdmin ? 'Remove Admin' : 'Make Admin';
+                }
+            });
+        });
+    });
+
+    // Delete user
+    document.querySelectorAll('.delete-user').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const userId = btn.dataset.userId;
+            
+            Swal.fire({
+                title: 'Delete User?',
+                text: 'This action cannot be undone!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d4af37',
+                cancelButtonColor: '#1a1a1a',
+                confirmButtonText: 'Yes, delete them!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/admin/users/${userId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('User deleted successfully!', 'success');
+                            btn.closest('.user-item').remove();
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    // Handle submission approval
+    document.querySelectorAll('.approve-submission').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const submissionId = btn.dataset.submissionId;
+            
+            Swal.fire({
+                title: 'Approve Submission?',
+                text: 'This will create a new post from this submission.',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#28a745',
+                cancelButtonColor: '#1a1a1a',
+                confirmButtonText: 'Yes, approve it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/admin/submissions/${submissionId}/approve`, {
+                        method: 'POST'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Submission approved and posted!', 'success');
+                            btn.closest('.submission-item').remove();
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    // Handle submission rejection
+    document.querySelectorAll('.reject-submission').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const submissionId = btn.dataset.submissionId;
+            
+            Swal.fire({
+                title: 'Reject Submission?',
+                text: 'This action cannot be undone!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#1a1a1a',
+                confirmButtonText: 'Yes, reject it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/admin/submissions/${submissionId}/reject`, {
+                        method: 'POST'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Submission rejected!', 'success');
+                            btn.closest('.submission-item').remove();
+                        }
+                    });
+                }
+            });
+        });
+    });
+
+    // Invite system functionality
+    const addInviteBtn = document.getElementById('add-invite');
+    const inviteEmailInput = document.getElementById('invite-email');
+    const sendInvitesBtn = document.getElementById('send-invites');
+
+    // Add new invite
+    addInviteBtn.addEventListener('click', () => {
+        const email = inviteEmailInput.value.trim();
+        if (!email || !email.includes('@')) {
+            showToast('Please enter a valid email address', 'error');
+            return;
+        }
+
+        fetch('/admin/invites/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                showToast('Invite added successfully!', 'success');
+                
+                // Clear input
+                inviteEmailInput.value = '';
+                
+                // Add new invite to list
+                const inviteList = document.querySelector('.invite-list');
+                if (inviteList.querySelector('.alert')) {
+                    inviteList.innerHTML = ''; // Remove "no invites" message
+                }
+                
+                const newInviteItem = document.createElement('div');
+                newInviteItem.className = 'invite-item';
+                newInviteItem.dataset.inviteId = data.invite.id;
+                newInviteItem.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5>${data.invite.email}</h5>
+                            <p class="text-muted">Added by ${data.invite.addedBy} • ${new Date(data.invite.addedAt).toLocaleDateString()}</p>
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger delete-invite" data-invite-id="${data.invite.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                inviteList.appendChild(newInviteItem);
+                
+                // Add event listener to new delete button
+                const deleteBtn = newInviteItem.querySelector('.delete-invite');
+                addDeleteInviteHandler(deleteBtn);
+            } else {
+                showToast(data.message || 'Failed to add invite', 'error');
+            }
+        });
+    });
+
+    // Allow pressing Enter to add an invite
+    inviteEmailInput.addEventListener('keyup', (e) => {
+        if (e.key === 'Enter') {
+            addInviteBtn.click();
+        }
+    });
+
+    // Delete invite handler
+    function addDeleteInviteHandler(btn) {
+        btn.addEventListener('click', () => {
+            const inviteId = btn.dataset.inviteId;
+            const inviteItem = btn.closest('.invite-item');
+            
+            Swal.fire({
+                title: 'Delete Invite?',
+                text: 'Are you sure you want to remove this email from the invite list?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d4af37',
+                cancelButtonColor: '#1a1a1a',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/admin/invites/${inviteId}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Invite deleted', 'success');
+                            inviteItem.remove();
+                            
+                            // Show "no invites" message if list is empty
+                            const inviteList = document.querySelector('.invite-list');
+                            if (inviteList.children.length === 0) {
+                                inviteList.innerHTML = `
+                                    <div class="alert alert-info">
+                                        No invites yet. Add email addresses to invite new users.
+                                    </div>
+                                `;
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    }
+
+    // Add delete handlers to existing invite buttons
+    document.querySelectorAll('.delete-invite').forEach(btn => {
+        addDeleteInviteHandler(btn);
+    });
+
+    // Send all invitations
+    sendInvitesBtn.addEventListener('click', () => {
+        const inviteList = document.querySelector('.invite-list');
+        if (!inviteList.querySelector('.invite-item')) {
+            showToast('No invites to send', 'error');
+            return;
+        }
+        
+        Swal.fire({
+            title: 'Send Invitations?',
+            text: 'This will send an email to all addresses in the invite list with the registration access code.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#d4af37',
+            cancelButtonColor: '#1a1a1a',
+            confirmButtonText: 'Yes, send invites!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Show loading
+                Swal.fire({
+                    title: 'Sending Invitations',
+                    html: 'Please wait while we send out the invites...',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+                
+                fetch('/admin/invites/send-all', {
+                    method: 'POST'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    Swal.close();
+                    
+                    if (data.success) {
+                        showToast(data.message, 'success');
+                    } else {
+                        if (data.message && data.message.includes('Email system is disabled')) {
+                            Swal.fire({
+                                title: 'Email Service Disabled',
+                                html: `<p>The email system is currently disabled in your environment configuration.</p>
+                                      <p>To enable it, please set <code>EMAIL_SYSTEM_ENABLED=true</code> in your .env file.</p>`,
+                                icon: 'info',
+                                confirmButtonColor: '#d4af37'
+                            });
+                        } else {
+                            showToast(data.message || 'Error sending invitations', 'error');
+                        }
+                    }
+                })
+                .catch(error => {
+                    Swal.close();
+                    showToast('Error sending invitations', 'error');
+                });
+            }
+        });
+    });
+});
+</script> 

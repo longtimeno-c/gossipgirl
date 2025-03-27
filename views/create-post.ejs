@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card post-card">
+            <div class="card-body p-5">
+                <h2 class="text-center mb-4">
+                    <i class="fas fa-feather-alt me-2" style="color: var(--accent-gold);"></i>
+                    Share Your Somerset Gossip
+                </h2>
+                <% if (error) { %>
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        <%= error %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %>
+                <% if (success) { %>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>
+                        <%= success %>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <% } %>
+                <form action="/create-post" method="POST">
+                    <div class="mb-4">
+                        <label for="title" class="form-label">Title</label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: var(--taunton-green); color: var(--cream);">
+                                <i class="fas fa-heading"></i>
+                            </span>
+                            <input type="text" class="form-control" id="title" name="title" required 
+                                   placeholder="What's the latest from Taunton?">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="content" class="form-label">Content</label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="background-color: var(--taunton-green); color: var(--cream);">
+                                <i class="fas fa-pen-fancy"></i>
+                            </span>
+                            <textarea class="form-control" id="content" name="content" rows="8" required
+                                      placeholder="Share your Somerset tea..."></textarea>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-dark btn-lg px-5" style="background-color: var(--taunton-green); border-color: var(--taunton-green);">
+                            <i class="fas fa-paper-plane me-2"></i>
+                            Share Story
+                        </button>
+                    </div>
+                </form>
+                <div class="text-center mt-4">
+                    <p class="text-muted fst-italic mb-0" style="color: var(--somerset-blue) !important;">
+                        Remember, in Somerset, every tale finds its way to Taunton Girl
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

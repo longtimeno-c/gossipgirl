@@ -1,0 +1,217 @@
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <% if (typeof successMessage !== 'undefined' && successMessage) { %>
+            <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+                <i class="fas fa-check-circle me-2"></i>
+                <%= successMessage %>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <% } %>
+        
+        <h1 class="text-center mb-5" style="font-size: 2.5rem; color: var(--somerset-blue);">
+            Hello Taunton Darlings
+            <small class="d-block mt-2" style="font-size: 1.2rem; font-family: 'Cormorant Garamond', serif; color: var(--taunton-green);">
+                Taunton Girl here, your exclusive source into the scandalous lives of Somerset's finest
+            </small>
+        </h1>
+        
+        <% if (posts.length === 0) { %>
+            <div class="text-center empty-state py-5">
+                <div class="mb-4">
+                    <i class="fas fa-crown fa-3x" style="color: var(--accent-gold);"></i>
+                </div>
+                <p class="lead mb-4" style="font-style: italic; color: var(--deep-brown); font-size: 1.4rem;">
+                    No Somerset secrets yet... But in a town this charming, gossip flows like the River Tone.
+                    <span class="d-block mt-3" style="color: var(--taunton-green);">And you know you can't resist.</span>
+                </p>
+                <div class="mt-4">
+                    <hr class="w-25 mx-auto" style="border-color: var(--accent-gold);">
+                    <p class="mt-4" style="color: var(--somerset-blue); font-size: 1.1rem;">
+                        <i class="fas fa-quote-left me-2" style="color: var(--accent-gold);"></i>
+                        From Vivary Park to the Castle, no secret stays hidden for long
+                        <i class="fas fa-quote-right ms-2" style="color: var(--accent-gold);"></i>
+                    </p>
+                </div>
+            </div>
+        <% } else { %>
+            <% posts.forEach(post => { %>
+                <div class="card post-card">
+                    <div class="card-body p-4">
+                        <h2 class="post-title">
+                            <i class="fas fa-gem me-2" style="color: var(--accent-gold);"></i>
+                            <%= post.title %>
+                        </h2>
+                        <p class="post-meta">
+                            <i class="fas fa-feather me-2" style="color: var(--taunton-green);"></i>
+                            Spotted on <%= new Date(post.timestamp).toLocaleDateString('en-US', { 
+                                weekday: 'long',
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            }) %>
+                        </p>
+                        <div class="post-content">
+                            <%= post.content %>
+                        </div>
+                        <div class="mt-4 d-flex justify-content-between align-items-center">
+                            <div class="reactions-container">
+                                <button class="btn-reaction reaction-heart <%= user && post.reactions && post.reactions.heart && post.reactions.heart.includes(user.id) ? 'active' : '' %>" 
+                                    data-post-id="<%= post.id %>" data-reaction-type="heart" <%= !user ? 'disabled' : '' %>>
+                                    <i class="fas fa-heart"></i>
+                                    <span class="reaction-count"><%= post.reactions && post.reactions.heart ? post.reactions.heart.length : 0 %></span>
+                                </button>
+                                <button class="btn-reaction reaction-shocked <%= user && post.reactions && post.reactions.shocked && post.reactions.shocked.includes(user.id) ? 'active' : '' %>" 
+                                    data-post-id="<%= post.id %>" data-reaction-type="shocked" <%= !user ? 'disabled' : '' %>>
+                                    <i class="fas fa-surprise"></i>
+                                    <span class="reaction-count"><%= post.reactions && post.reactions.shocked ? post.reactions.shocked.length : 0 %></span>
+                                </button>
+                                <button class="btn-reaction reaction-xoxo <%= user && post.reactions && post.reactions.xoxo && post.reactions.xoxo.includes(user.id) ? 'active' : '' %>" 
+                                    data-post-id="<%= post.id %>" data-reaction-type="xoxo" <%= !user ? 'disabled' : '' %>>
+                                    <span class="xoxo">XO</span>
+                                    <span class="reaction-count"><%= post.reactions && post.reactions.xoxo ? post.reactions.xoxo.length : 0 %></span>
+                                </button>
+                            </div>
+                            <div>
+                                <small class="signature" style="color: var(--taunton-green);">
+                                    <i class="fas fa-heart me-1" style="color: var(--accent-gold);"></i>
+                                    Kisses from the West Country
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+        <% } %>
+        
+        <div class="archive-notice mt-5 text-center">
+            <hr class="w-50 mx-auto" style="border-color: var(--accent-gold);">
+            <p class="mt-4 mb-4" style="color: var(--deep-brown); font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;">
+                <i class="fas fa-clock me-2" style="color: var(--accent-gold);"></i>
+                Darlings, please note: After one year, posts are automatically archived into my private collection.
+                <span class="d-block mt-2" style="color: var(--taunton-green);">
+                    Even Somerset's juiciest secrets must eventually fade into whispers...
+                </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Add CSS for reactions -->
+<style>
+    .reactions-container {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    .btn-reaction {
+        background: none;
+        border: none;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 5px 10px;
+        border-radius: 20px;
+        color: #888;
+    }
+
+    .btn-reaction:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .btn-reaction:not(:disabled):hover {
+        transform: scale(1.1);
+    }
+
+    .reaction-count {
+        font-size: 0.9rem;
+        font-weight: bold;
+    }
+
+    .reaction-heart.active {
+        color: #e25555;
+    }
+
+    .reaction-heart:not(:disabled):hover {
+        color: #e25555;
+    }
+
+    .reaction-shocked.active {
+        color: #FFD700;
+    }
+
+    .reaction-shocked:not(:disabled):hover {
+        color: #FFD700;
+    }
+
+    .reaction-xoxo {
+        font-weight: bold;
+        position: relative;
+    }
+
+    .reaction-xoxo.active .xoxo {
+        color: #e53935;
+    }
+
+    .reaction-xoxo:not(:disabled):hover .xoxo {
+        color: #e53935;
+    }
+
+    .xoxo {
+        font-family: 'Playfair Display', serif;
+        font-weight: bold;
+        letter-spacing: -1px;
+    }
+</style>
+
+<!-- Add JavaScript for reaction functionality -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const reactionButtons = document.querySelectorAll('.btn-reaction');
+        
+        reactionButtons.forEach(button => {
+            if (!button.disabled) {
+                button.addEventListener('click', async function() {
+                    const postId = this.dataset.postId;
+                    const reactionType = this.dataset.reactionType;
+                    
+                    try {
+                        const response = await fetch('/api/reactions', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                postId,
+                                reactionType
+                            })
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            // Update the reaction count
+                            const countElement = this.querySelector('.reaction-count');
+                            countElement.textContent = data.count;
+                            
+                            // Toggle active class
+                            if (data.added) {
+                                this.classList.add('active');
+                            } else {
+                                this.classList.remove('active');
+                            }
+                        } else {
+                            console.error('Failed to update reaction:', data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error updating reaction:', error);
+                    }
+                });
+            }
+        });
+    });
+</script> 

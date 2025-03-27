@@ -1,0 +1,263 @@
+<%- contentFor('body') %>
+<div class="profile-container fade-in">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-card post-card">
+                <div class="text-center mb-4">
+                    <div class="profile-avatar mb-3">
+                        <i class="fas fa-user-circle fa-6x text-gold"></i>
+                    </div>
+                    <h2 class="profile-username"><%= profileUser.username %></h2>
+                    <p class="text-muted"><%= profileUser.email %></p>
+                    <% if (profileUser.isAdmin) { %>
+                        <span class="badge bg-gold">Admin</span>
+                    <% } %>
+                </div>
+                <% if (user && user.id === profileUser.id) { %>
+                    <div class="text-center mt-4">
+                        <button class="btn btn-dark edit-profile-btn">
+                            <i class="fas fa-edit me-2"></i>Edit Profile
+                        </button>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="activity-section post-card">
+                <h3 class="mb-4"><i class="fas fa-history me-2"></i>Recent Activity</h3>
+                
+                <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="posts-tab" data-bs-toggle="tab" data-bs-target="#posts" type="button" role="tab" aria-controls="posts" aria-selected="true">
+                            <i class="fas fa-newspaper me-1"></i> Published Posts
+                        </button>
+                    </li>
+                    <% if (locals.userSubmissions && userSubmissions.length > 0) { %>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="submissions-tab" data-bs-toggle="tab" data-bs-target="#submissions" type="button" role="tab" aria-controls="submissions" aria-selected="false">
+                                <i class="fas fa-inbox me-1"></i> Pending Submissions
+                            </button>
+                        </li>
+                    <% } %>
+                </ul>
+                
+                <div class="tab-content" id="profileTabsContent">
+                    <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                        <div class="timeline">
+                            <% if (userPosts.length === 0) { %>
+                                <div class="text-center text-muted py-5">
+                                    <i class="fas fa-newspaper fa-3x mb-3"></i>
+                                    <p>No published posts yet.</p>
+                                </div>
+                            <% } else { %>
+                                <% userPosts.forEach(post => { %>
+                                    <div class="timeline-item">
+                                        <div class="timeline-date">
+                                            <%= new Date(post.timestamp).toLocaleDateString() %>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <h4><%= post.title %></h4>
+                                            <p><%= post.content.substring(0, 150) %>...</p>
+                                            <div class="mt-2 profile-reactions">
+                                                <span class="reaction-indicator">
+                                                    <i class="fas fa-heart" style="color: #e25555;"></i>
+                                                    <span class="count"><%= post.reactions && post.reactions.heart ? post.reactions.heart.length : 0 %></span>
+                                                </span>
+                                                <span class="reaction-indicator">
+                                                    <i class="fas fa-surprise" style="color: #FFD700;"></i>
+                                                    <span class="count"><%= post.reactions && post.reactions.shocked ? post.reactions.shocked.length : 0 %></span>
+                                                </span>
+                                                <span class="reaction-indicator">
+                                                    <span class="xoxo" style="color: #e53935; font-weight: bold;">XO</span>
+                                                    <span class="count"><%= post.reactions && post.reactions.xoxo ? post.reactions.xoxo.length : 0 %></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% }); %>
+                            <% } %>
+                        </div>
+                    </div>
+                    
+                    <% if (locals.userSubmissions && userSubmissions.length > 0) { %>
+                        <div class="tab-pane fade" id="submissions" role="tabpanel" aria-labelledby="submissions-tab">
+                            <div class="timeline">
+                                <% userSubmissions.forEach(submission => { %>
+                                    <div class="timeline-item">
+                                        <div class="timeline-date">
+                                            <%= new Date(submission.timestamp).toLocaleDateString() %>
+                                            <span class="badge bg-warning text-dark ms-2">Pending Review</span>
+                                        </div>
+                                        <div class="timeline-content">
+                                            <h4><%= submission.title %></h4>
+                                            <p><%= submission.content.substring(0, 150) %>...</p>
+                                        </div>
+                                    </div>
+                                <% }); %>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.profile-card {
+    padding: 2rem;
+    text-align: center;
+}
+
+.profile-avatar {
+    color: var(--accent-gold);
+    margin-bottom: 1rem;
+}
+
+.profile-username {
+    color: var(--deep-brown);
+    margin-bottom: 0.5rem;
+}
+
+.bg-gold {
+    background-color: var(--accent-gold);
+}
+
+.activity-section {
+    padding: 2rem;
+}
+
+.timeline {
+    position: relative;
+    padding: 1rem 0;
+}
+
+.timeline-item {
+    position: relative;
+    padding: 1rem 0;
+    border-left: 2px solid var(--accent-gold);
+    margin-left: 1rem;
+    padding-left: 2rem;
+}
+
+.timeline-date {
+    color: var(--accent-gold);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.timeline-content {
+    background: rgba(201, 162, 39, 0.2);
+    padding: 1rem;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.timeline-content h4 {
+    color: #000;
+    font-weight: 600;
+}
+
+.timeline-content p {
+    color: #333;
+    line-height: 1.5;
+}
+
+.edit-profile-btn {
+    width: 100%;
+}
+
+.profile-reactions {
+    display: flex;
+    gap: 15px;
+}
+
+.reaction-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+.reaction-indicator .count {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.reaction-indicator .xoxo {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: -1px;
+}
+
+.nav-tabs {
+    border-bottom: 2px solid var(--accent-gold);
+}
+
+.nav-tabs .nav-link {
+    color: #000;
+    font-weight: 600;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    margin-right: 5px;
+    transition: all 0.2s ease;
+}
+
+.nav-tabs .nav-link.active {
+    color: #fff;
+    font-weight: 700;
+    background-color: var(--accent-gold);
+    border-color: var(--accent-gold);
+}
+
+.nav-tabs .nav-link:hover:not(.active) {
+    color: var(--accent-gold);
+    background-color: #fff;
+    border-color: var(--accent-gold);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const editProfileBtn = document.querySelector('.edit-profile-btn');
+    if (editProfileBtn) {
+        editProfileBtn.addEventListener('click', () => {
+            Swal.fire({
+                title: 'Edit Profile',
+                html: `
+                    <input type="email" id="email" class="swal2-input" placeholder="Email" value="<%= profileUser.email %>">
+                    <input type="password" id="newPassword" class="swal2-input" placeholder="New Password (optional)">
+                `,
+                showCancelButton: true,
+                confirmButtonText: 'Save Changes',
+                confirmButtonColor: '#d4af37',
+                cancelButtonColor: '#1a1a1a',
+                preConfirm: () => {
+                    return {
+                        email: document.getElementById('email').value,
+                        newPassword: document.getElementById('newPassword').value
+                    }
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch('/update-profile', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(result.value)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Profile updated successfully!', 'success');
+                            setTimeout(() => window.location.reload(), 1500);
+                        } else {
+                            showToast('Failed to update profile', 'error');
+                        }
+                    });
+                }
+            });
+        });
+    }
+});
+</script> 

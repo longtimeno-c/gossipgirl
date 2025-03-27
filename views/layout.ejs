@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taunton Girl XOXO</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:ital@0;1&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <style>
+        :root {
+            --taunton-green: #2C5530;
+            --somerset-blue: #1B4965;
+            --cream: #F7F3E3;
+            --accent-gold: #C9A227;
+            --deep-brown: #2C1810;
+            --transition-speed: 0.3s;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background-color: var(--cream);
+            color: var(--deep-brown);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .navbar-brand {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .navbar {
+            background: linear-gradient(to right, var(--taunton-green), var(--somerset-blue)) !important;
+            padding: 1rem 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.2);
+        }
+
+        .navbar-brand {
+            color: var(--cream) !important;
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .nav-link {
+            position: relative;
+            color: var(--cream) !important;
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            transition: all var(--transition-speed) ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background-color: var(--accent-gold);
+            transition: all var(--transition-speed) ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .post-card {
+            border: none;
+            box-shadow: 0 4px 20px rgba(44, 85, 48, 0.1);
+            margin-bottom: 30px;
+            transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
+            background: white;
+            opacity: 0;
+            transform: translateY(20px);
+            border-radius: 12px;
+            overflow: hidden;
+            border-left: 4px solid var(--taunton-green);
+        }
+
+        .post-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .post-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(44, 85, 48, 0.2);
+        }
+
+        .post-title {
+            color: var(--somerset-blue);
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding: 0;
+            line-height: 1.3;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .post-title i {
+            flex-shrink: 0;
+        }
+
+        .post-meta {
+            color: #666;
+            font-style: italic;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .post-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            white-space: pre-line;
+            margin: 0;
+            padding: 0;
+            text-indent: 0;
+        }
+
+        .post-content p {
+            margin: 0;
+            padding: 0;
+            text-indent: 0;
+        }
+
+        .signature {
+            color: var(--accent-gold);
+            font-style: italic;
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 1px;
+        }
+
+        .btn-dark {
+            background-color: var(--taunton-green);
+            border-color: var(--taunton-green);
+            padding: 10px 25px;
+            font-family: 'Playfair Display', serif;
+            transition: all 0.3s ease;
+        }
+
+        .btn-dark:hover {
+            background-color: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        footer {
+            background-color: var(--taunton-green);
+            color: white;
+            padding: 2rem 0;
+            flex-shrink: 0;
+        }
+
+        .form-control {
+            border-radius: 0;
+            border: 1px solid #ddd;
+            padding: 12px;
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: var(--accent-gold);
+        }
+
+        /* Enhanced Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        .loading-spinner.show {
+            display: block;
+        }
+
+        /* Page Transitions */
+        .page-transition {
+            opacity: 0;
+            transition: opacity var(--transition-speed) ease;
+        }
+
+        .page-transition.visible {
+            opacity: 1;
+        }
+
+        /* Toast Notifications */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .container.py-4.page-transition {
+            flex: 1 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-crown me-2"></i>Taunton Girl</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="fas fa-home me-1"></i> Home</a>
+                    </li>
+                    <% if (typeof user !== 'undefined' && user) { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/profile/<%= user.id %>">
+                                <i class="fas fa-user me-1"></i> Profile
+                            </a>
+                        </li>
+                        <% if (user.isAdmin) { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin">
+                                    <i class="fas fa-crown me-1"></i> Admin
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/create-post">
+                                    <i class="fas fa-pen-fancy me-1"></i> Create Post
+                                </a>
+                            </li>
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/submit-story">
+                                    <i class="fas fa-paper-plane me-1"></i> Submit Story
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/refer-friend">
+                                    <i class="fas fa-user-plus me-1"></i> Refer a Friend
+                                </a>
+                            </li>
+                        <% } %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/logout">
+                                <i class="fas fa-sign-out-alt me-1"></i> Logout
+                            </a>
+                        </li>
+                    <% } else { %>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt me-1"></i> Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/register"><i class="fas fa-user-plus me-1"></i> Register</a>
+                        </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="loading-spinner">
+        <div class="spinner-border text-gold" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div class="container py-4 page-transition">
+        <%- body %>
+    </div>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <footer>
+        <div class="container">
+            <p class="signature text-center mb-0">Kisses from the West Country, Taunton Girl</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Initialize page transitions
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.page-transition').classList.add('visible');
+            initializePostCards();
+        });
+
+        // Initialize post card animations
+        function initializePostCards() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.post-card').forEach(card => {
+                observer.observe(card);
+            });
+        }
+
+        // Logout confirmation
+        document.querySelectorAll('a[href="/logout"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Leaving the Somerset Scene?',
+                    text: 'Until next time, darling. Kisses from Taunton Girl',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#2C5530',
+                    cancelButtonColor: '#1B4965',
+                    confirmButtonText: 'Yes, log me out',
+                    cancelButtonText: "No, I'll stay",
+                    customClass: {
+                        popup: 'swal-custom'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = '/logout';
+                    }
+                });
+            });
+        });
+
+        // Show loading spinner on navigation
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a');
+            if (link && 
+                !link.getAttribute('href').startsWith('#') && 
+                !link.getAttribute('href').startsWith('javascript:') &&
+                link.getAttribute('href') !== '/logout') {
+                document.querySelector('.loading-spinner').classList.add('show');
+            }
+        });
+
+        // Toast notification helper
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast align-items-center text-white bg-${type === 'success' ? 'success' : 'dark'} border-0`;
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            
+            toast.innerHTML = `
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'} me-2"></i>
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+            `;
+            
+            const container = document.getElementById('toast-container');
+            container.appendChild(toast);
+            
+            const bsToast = new bootstrap.Toast(toast);
+            bsToast.show();
+            
+            toast.addEventListener('hidden.bs.toast', () => {
+                toast.remove();
+            });
+        }
+
+        // Form submission enhancement
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', (e) => {
+                const formAction = form.getAttribute('action');
+                const noSpinner = form.getAttribute('data-no-spinner');
+                if (formAction !== '/logout' && noSpinner !== 'true') {
+                    document.querySelector('.loading-spinner').classList.add('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
