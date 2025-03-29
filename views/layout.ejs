@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taunton Girl XOXO</title>
+    <title>Gossip Girl XOXO</title>
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lora:ital@0;1&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
@@ -11,18 +11,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         :root {
-            --taunton-green: #2C5530;
-            --somerset-blue: #1B4965;
-            --cream: #F7F3E3;
-            --accent-gold: #C9A227;
-            --deep-brown: #2C1810;
+            --gg-dark: #1a1a1a;
+            --gg-accent: #d4af37;
+            --gg-light: #f8f8f8;
+            --gg-secondary: #963c3c;
+            --gg-tertiary: #555555;
             --transition-speed: 0.3s;
         }
         
         body {
             font-family: 'Cormorant Garamond', serif;
-            background-color: var(--cream);
-            color: var(--deep-brown);
+            background-color: var(--gg-light);
+            color: var(--gg-dark);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -35,13 +35,13 @@
         }
 
         .navbar {
-            background: linear-gradient(to right, var(--taunton-green), var(--somerset-blue)) !important;
+            background: linear-gradient(to right, var(--gg-dark), #333) !important;
             padding: 1rem 0;
             box-shadow: 0 2px 15px rgba(0,0,0,0.2);
         }
 
         .navbar-brand {
-            color: var(--cream) !important;
+            color: var(--gg-accent) !important;
             font-size: 32px;
             font-weight: 700;
             letter-spacing: 2px;
@@ -50,7 +50,7 @@
 
         .nav-link {
             position: relative;
-            color: var(--cream) !important;
+            color: var(--gg-light) !important;
             font-family: 'Playfair Display', serif;
             font-size: 18px;
             transition: all var(--transition-speed) ease;
@@ -65,7 +65,7 @@
             height: 2px;
             bottom: 0;
             left: 50%;
-            background-color: var(--accent-gold);
+            background-color: var(--gg-accent);
             transition: all var(--transition-speed) ease;
         }
 
@@ -76,7 +76,7 @@
 
         .post-card {
             border: none;
-            box-shadow: 0 4px 20px rgba(44, 85, 48, 0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             margin-bottom: 30px;
             transition: all var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
             background: white;
@@ -84,7 +84,7 @@
             transform: translateY(20px);
             border-radius: 12px;
             overflow: hidden;
-            border-left: 4px solid var(--taunton-green);
+            border-left: 4px solid var(--gg-dark);
         }
 
         .post-card.visible {
@@ -94,11 +94,11 @@
 
         .post-card:hover {
             transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(44, 85, 48, 0.2);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
         }
 
         .post-title {
-            color: var(--somerset-blue);
+            color: var(--gg-dark);
             font-size: 28px;
             font-weight: 700;
             margin-bottom: 15px;
@@ -138,7 +138,7 @@
         }
 
         .signature {
-            color: var(--accent-gold);
+            color: var(--gg-accent);
             font-style: italic;
             font-weight: 700;
             font-size: 20px;
@@ -146,20 +146,20 @@
         }
 
         .btn-dark {
-            background-color: var(--taunton-green);
-            border-color: var(--taunton-green);
+            background-color: var(--gg-dark);
+            border-color: var(--gg-dark);
             padding: 10px 25px;
             font-family: 'Playfair Display', serif;
             transition: all 0.3s ease;
         }
 
         .btn-dark:hover {
-            background-color: var(--accent-gold);
-            border-color: var(--accent-gold);
+            background-color: var(--gg-accent);
+            border-color: var(--gg-accent);
         }
 
         footer {
-            background-color: var(--taunton-green);
+            background-color: var(--gg-dark);
             color: white;
             padding: 2rem 0;
             flex-shrink: 0;
@@ -173,7 +173,7 @@
 
         .form-control:focus {
             box-shadow: none;
-            border-color: var(--accent-gold);
+            border-color: var(--gg-accent);
         }
 
         /* Enhanced Animations */
@@ -226,7 +226,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="/"><i class="fas fa-crown me-2"></i>Taunton Girl</a>
+            <a class="navbar-brand" href="/"><i class="fas fa-crown me-2"></i>Gossip Girl</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -296,7 +296,7 @@
 
     <footer>
         <div class="container">
-            <p class="signature text-center mb-0">Kisses from the West Country, Taunton Girl</p>
+            <p class="signature text-center mb-0">XOXO, Gossip Girl</p>
         </div>
     </footer>
 
@@ -329,12 +329,12 @@
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 Swal.fire({
-                    title: 'Leaving the Somerset Scene?',
-                    text: 'Until next time, darling. Kisses from Taunton Girl',
+                    title: 'Leaving So Soon?',
+                    text: 'Until next time. XOXO, Gossip Girl',
                     icon: 'question',
                     showCancelButton: true,
-                    confirmButtonColor: '#2C5530',
-                    cancelButtonColor: '#1B4965',
+                    confirmButtonColor: '#1a1a1a',
+                    cancelButtonColor: '#963c3c',
                     confirmButtonText: 'Yes, log me out',
                     cancelButtonText: "No, I'll stay",
                     customClass: {

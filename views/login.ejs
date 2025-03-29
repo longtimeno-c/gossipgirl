@@ -37,8 +37,8 @@
             <div class="card post-card">
                 <div class="card-body p-5">
                     <h2 class="text-center mb-4">
-                        <i class="fas fa-lock me-2" style="color: var(--accent-gold);"></i>
-                        Welcome Back, Somerset Darling
+                        <i class="fas fa-lock me-2" style="color: var(--gg-accent);"></i>
+                        Welcome Back, Upper East Sider
                     </h2>
                     <% if (error) { %>
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -51,7 +51,7 @@
                         <div class="mb-4">
                             <label for="username" class="form-label">Username or Email</label>
                             <div class="input-group">
-                                <span class="input-group-text" style="background-color: var(--taunton-green); color: var(--cream);">
+                                <span class="input-group-text" style="background-color: var(--gg-dark); color: white;">
                                     <i class="fas fa-user"></i>
                                 </span>
                                 <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username or email" required>
@@ -60,7 +60,7 @@
                         <div class="mb-4">
                             <label for="password" class="form-label">Password</label>
                             <div class="input-group">
-                                <span class="input-group-text" style="background-color: var(--taunton-green); color: var(--cream);">
+                                <span class="input-group-text" style="background-color: var(--gg-dark); color: white;">
                                     <i class="fas fa-key"></i>
                                 </span>
                                 <input type="password" class="form-control" id="password" name="password" required>
@@ -74,14 +74,14 @@
                         </div>
                     </form>
                     <div class="text-center mt-3">
-                        <a href="/forgot-password" class="text-decoration-none" style="color: var(--somerset-blue);">
+                        <a href="/forgot-password" class="text-decoration-none" style="color: var(--gg-secondary);">
                             <i class="fas fa-key me-1"></i>Forgot Password?
                         </a>
                     </div>
                     <div class="text-center mt-4">
                         <p class="mb-0">
-                            New to the Somerset scene? 
-                            <a href="/register" class="text-decoration-none" style="color: var(--somerset-blue);">
+                            New to Manhattan? 
+                            <a href="/register" class="text-decoration-none" style="color: var(--gg-secondary);">
                                 Register here
                             </a>
                         </p>
@@ -120,8 +120,8 @@
         background: white;
         border-radius: 12px;
         padding: 30px;
-        box-shadow: 0 4px 20px rgba(44, 85, 48, 0.1);
-        border-left: 4px solid var(--taunton-green);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        border-left: 4px solid var(--gg-dark);
         filter: blur(5px);
         transform: scale(0.9);
         opacity: 0.7;
@@ -129,7 +129,7 @@
     
     .blurred-card-title {
         height: 30px;
-        background: var(--somerset-blue);
+        background: var(--gg-dark);
         opacity: 0.7;
         width: 80%;
         border-radius: 4px;

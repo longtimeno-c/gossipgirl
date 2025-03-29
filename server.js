@@ -503,28 +503,28 @@ app.post('/admin/submissions/:submissionId/approve', requireAdmin, (req, res) =>
                         const notificationOptions = {
                             from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
                             to: user.email,
-                            subject: `New Taunton Girl Post: ${newPost.title}`,
+                            subject: `New Gossip Girl Post: ${newPost.title}`,
                             html: `
                                 <!DOCTYPE html>
                                 <html lang="en">
                                 <head>
                                     <meta charset="UTF-8">
                                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                    <title>New Post - Taunton Girl</title>
+                                    <title>New Post - Gossip Girl</title>
                                     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
                                 </head>
                                 <body style="margin: 0; padding: 0; font-family: 'Cormorant Garamond', serif; color: #2C1810; background-color: #F7F3E3;">
                                     <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
                                         <div style="text-align: center; margin-bottom: 30px;">
                                             <h1 style="font-family: 'Playfair Display', serif; color: #2C5530; margin: 0; font-size: 36px; font-weight: 700;">
-                                                <span style="color: #C9A227;">✧</span> Taunton Girl <span style="color: #C9A227;">✧</span>
+                                                <span style="color: #C9A227;">✧</span> Gossip Girl <span style="color: #C9A227;">✧</span>
                                             </h1>
-                                            <p style="font-style: italic; color: #1B4965; margin-top: 5px; font-size: 18px;">Your exclusive source into Somerset's finest</p>
+                                            <p style="font-style: italic; color: #1B4965; margin-top: 5px; font-size: 18px;">Your one and only source into the scandalous lives of Manhattan's elite</p>
                                         </div>
                                         
                                         <div style="background-color: #ffffff; border-left: 4px solid #2C5530; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(44, 85, 48, 0.2);">
                                             <h2 style="font-family: 'Playfair Display', serif; color: #1B4965; margin-top: 0; font-size: 26px; text-align: center;">
-                                                Fresh Somerset Tea Just Poured
+                                                Fresh Manhattan Gossip Just Dropped
                                             </h2>
                                             
                                             <p style="font-size: 17px; line-height: 1.6; color: #2C1810; margin-bottom: 25px; font-weight: 500;">
@@ -532,7 +532,7 @@ app.post('/admin/submissions/:submissionId/approve', requireAdmin, (req, res) =>
                                             </p>
                                             
                                             <p style="font-size: 17px; line-height: 1.6; color: #2C1810; margin-bottom: 25px; font-weight: 500;">
-                                                A juicy new story from the heart of Somerset has just been published, and you simply <em>must</em> read it at once!
+                                                A juicy new story from the heart of the Upper East Side has just been published, and you simply <em>must</em> read it at once!
                                             </p>
                                             
                                             <div style="text-align: center; margin: 30px 0; padding: 20px; border: 2px dashed #C9A227; background-color: #FFFDF5; box-shadow: 0 4px 10px rgba(201, 162, 39, 0.1);">
@@ -553,10 +553,10 @@ app.post('/admin/submissions/:submissionId/approve', requireAdmin, (req, res) =>
                                                 Kisses from the West Country,
                                             </p>
                                             <p style="font-family: 'Playfair Display', serif; color: #2C5530; font-size: 24px; margin: 5px 0 0 0; font-weight: 700;">
-                                                Taunton Girl
+                                                Gossip Girl
                                             </p>
                                             <p style="font-family: 'Cormorant Garamond', serif; color: #1B4965; font-size: 16px; margin: 20px 0 0 0; font-weight: 500;">
-                                                <em>Remember, in Somerset, every tale finds its way to Taunton Girl</em>
+                                                <em>Remember, on the Upper East Side, every scandal finds its way to Gossip Girl</em>
                                             </p>
                                             <p style="font-size: 13px; color: #555; margin-top: 20px; font-weight: 500;">
                                                 To unsubscribe from these notifications, please update your profile settings.
@@ -723,23 +723,23 @@ app.post('/register', async (req, res) => {
                 const mailOptions = {
                     from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
                     to: email,
-                    subject: 'Verify Your Email - Taunton Girl XOXO',
+                    subject: 'Verify Your Email - Gossip Girl XOXO',
                     html: `
                         <!DOCTYPE html>
                         <html lang="en">
                         <head>
                             <meta charset="UTF-8">
                             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>Email Verification - Taunton Girl</title>
+                            <title>Email Verification - Gossip Girl</title>
                             <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
                         </head>
                         <body style="margin: 0; padding: 0; font-family: 'Cormorant Garamond', serif; color: #2C1810; background-color: #F7F3E3;">
                             <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
                                 <div style="text-align: center; margin-bottom: 30px;">
                                     <h1 style="font-family: 'Playfair Display', serif; color: #2C5530; margin: 0; font-size: 36px; font-weight: 700;">
-                                        <span style="color: #C9A227;">✧</span> Taunton Girl <span style="color: #C9A227;">✧</span>
+                                        <span style="color: #C9A227;">✧</span> Gossip Girl <span style="color: #C9A227;">✧</span>
                                     </h1>
-                                    <p style="font-style: italic; color: #1B4965; margin-top: 5px; font-size: 18px;">Your exclusive source into Somerset's finest</p>
+                                    <p style="font-style: italic; color: #1B4965; margin-top: 5px; font-size: 18px;">Your one and only source into the scandalous lives of Manhattan's elite</p>
                                 </div>
                                 
                                 <div style="background-color: #ffffff; border-left: 4px solid #2C5530; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(44, 85, 48, 0.2);">
@@ -752,7 +752,7 @@ app.post('/register', async (req, res) => {
                                     </p>
                                     
                                     <p style="font-size: 17px; line-height: 1.6; color: #2C1810; margin-bottom: 25px; font-weight: 500;">
-                                        Before you can access all the delicious secrets of Somerset society, we need to verify that this email belongs to you. 
+                                        Before you can access all the delicious secrets of Manhattan society, we need to verify that this email belongs to you. 
                                     </p>
                                     
                                     <div style="text-align: center; margin: 30px 0;">
@@ -769,7 +769,7 @@ app.post('/register', async (req, res) => {
                                     </div>
                                     
                                     <p style="font-size: 17px; line-height: 1.6; color: #2C1810; font-weight: 500;">
-                                        If you didn't create an account with Taunton Girl, you can simply ignore this email.
+                                        If you didn't create an account with Gossip Girl, you can simply ignore this email.
                                     </p>
                                 </div>
                                 
@@ -778,10 +778,10 @@ app.post('/register', async (req, res) => {
                                         Kisses from the West Country,
                                     </p>
                                     <p style="font-family: 'Playfair Display', serif; color: #2C5530; font-size: 24px; margin: 5px 0 0 0; font-weight: 700;">
-                                        Taunton Girl
+                                        Gossip Girl
                                     </p>
                                     <p style="font-family: 'Cormorant Garamond', serif; color: #1B4965; font-size: 16px; margin: 20px 0 0 0; font-weight: 500;">
-                                        <em>Remember, in Somerset, every tale finds its way to Taunton Girl</em>
+                                        <em>Remember, on the Upper East Side, every scandal finds its way to Gossip Girl</em>
                                     </p>
                                 </div>
                             </div>
@@ -797,7 +797,44 @@ app.post('/register', async (req, res) => {
                 res.render('register', { error: 'Failed to send verification email. Please try again.' });
             }
         } else {
-            res.render('register', { error: 'Email verification is currently disabled. Please contact the administrator.' });
+            // Skip email verification and create the account directly
+            try {
+                const users = JSON.parse(fs.readFileSync(USERS_FILE));
+                
+                // Hash the password
+                const hashedPassword = await bcrypt.hash(password, 10);
+                
+                const newUser = {
+                    id: Date.now().toString(),
+                    username: username,
+                    email: email,
+                    password: hashedPassword,
+                    isAdmin: false
+                };
+
+                // Add the new user to the database
+                users.push(newUser);
+                fs.writeFileSync(USERS_FILE, JSON.stringify(users, null, 2));
+                
+                // Log the user in 
+                const token = jwt.sign(
+                    { id: newUser.id, username: newUser.username, isAdmin: newUser.isAdmin },
+                    JWT_SECRET,
+                    { expiresIn: '24h' }
+                );
+
+                res.cookie('token', token, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+                });
+
+                // Redirect to homepage with success message
+                res.redirect('/?accountCreated=true');
+            } catch (createError) {
+                console.error('Error creating user account:', createError);
+                res.render('register', { error: 'Failed to create account. Please try again.' });
+            }
         }
     } catch (error) {
         res.render('register', { error: 'Registration failed. Please try again.' });
@@ -1000,28 +1037,28 @@ app.post('/create-post', (req, res) => {
                         const notificationOptions = {
                             from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
                             to: user.email,
-                            subject: `New Taunton Girl Post: ${title}`,
+                            subject: `New Gossip Girl Post: ${title}`,
                             html: `
                                 <!DOCTYPE html>
                                 <html lang="en">
                                 <head>
                                     <meta charset="UTF-8">
                                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                    <title>New Post - Taunton Girl</title>
+                                    <title>New Post - Gossip Girl</title>
                                     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
                                 </head>
                                 <body style="margin: 0; padding: 0; font-family: 'Cormorant Garamond', serif; color: #2C1810; background-color: #F7F3E3;">
                                     <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
                                         <div style="text-align: center; margin-bottom: 30px;">
                                             <h1 style="font-family: 'Playfair Display', serif; color: #2C5530; margin: 0; font-size: 36px; font-weight: 700;">
-                                                <span style="color: #C9A227;">✧</span> Taunton Girl <span style="color: #C9A227;">✧</span>
+                                                <span style="color: #C9A227;">✧</span> Gossip Girl <span style="color: #C9A227;">✧</span>
                                             </h1>
-                                            <p style="font-style: italic; color: #1B4965; margin-top: 5px; font-size: 18px;">Your exclusive source into Somerset's finest</p>
+                                            <p style="font-style: italic; color: #1B4965; margin-top: 5px; font-size: 18px;">Your one and only source into the scandalous lives of Manhattan's elite</p>
                                         </div>
                                         
                                         <div style="background-color: #ffffff; border-left: 4px solid #2C5530; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(44, 85, 48, 0.2);">
                                             <h2 style="font-family: 'Playfair Display', serif; color: #1B4965; margin-top: 0; font-size: 26px; text-align: center;">
-                                                Fresh Somerset Tea Just Poured
+                                                Fresh Manhattan Gossip Just Dropped
                                             </h2>
                                             
                                             <p style="font-size: 17px; line-height: 1.6; color: #2C1810; margin-bottom: 25px; font-weight: 500;">
@@ -1029,7 +1066,7 @@ app.post('/create-post', (req, res) => {
                                             </p>
                                             
                                             <p style="font-size: 17px; line-height: 1.6; color: #2C1810; margin-bottom: 25px; font-weight: 500;">
-                                                The latest scoop from Somerset has just arrived, and you simply <em>must</em> read it immediately!
+                                                The latest scoop from Manhattan has just arrived, and you simply <em>must</em> read it immediately!
                                             </p>
                                             
                                             <div style="text-align: center; margin: 30px 0; padding: 20px; border: 2px dashed #C9A227; background-color: #FFFDF5; box-shadow: 0 4px 10px rgba(201, 162, 39, 0.1);">
@@ -1050,10 +1087,10 @@ app.post('/create-post', (req, res) => {
                                                 Kisses from the West Country,
                                             </p>
                                             <p style="font-family: 'Playfair Display', serif; color: #2C5530; font-size: 24px; margin: 5px 0 0 0; font-weight: 700;">
-                                                Taunton Girl
+                                                Gossip Girl
                                             </p>
                                             <p style="font-family: 'Cormorant Garamond', serif; color: #1B4965; font-size: 16px; margin: 20px 0 0 0; font-weight: 500;">
-                                                <em>Remember, in Somerset, every tale finds its way to Taunton Girl</em>
+                                                <em>Remember, on the Upper East Side, every scandal finds its way to Gossip Girl</em>
                                             </p>
                                             <p style="font-size: 13px; color: #555; margin-top: 20px; font-weight: 500;">
                                                 To unsubscribe from these notifications, please update your profile settings.
@@ -1099,9 +1136,9 @@ app.get('/forgot-password', (req, res) => {
     
     if (process.env.EMAIL_SYSTEM_ENABLED !== 'true') {
         return res.status(503).render('error', { 
-            error: `Greetings from Taunton Girl!
+            error: `Greetings from Gossip Girl!
             
-Your trusted source for all the whispers and secrets of Somerset's finest.
+Your trusted source for all the whispers and secrets of Manhattan's elite.
 
 The email system is taking a lovely countryside break at the moment, darling. Perhaps a stroll through Vivary Park might clear your mind?
 
@@ -1117,9 +1154,9 @@ Ta-ra! 🌸`
 app.post('/forgot-password', async (req, res) => {
     if (process.env.EMAIL_SYSTEM_ENABLED !== 'true') {
         return res.status(503).render('error', { 
-            error: `Greetings from Taunton Girl!
+            error: `Greetings from Gossip Girl!
             
-Your trusted source for all the whispers and secrets of Somerset's finest.
+Your trusted source for all the whispers and secrets of Manhattan's elite.
 
 The email system is taking a lovely countryside break at the moment, darling. Perhaps a stroll through Vivary Park might clear your mind?
 
@@ -1155,23 +1192,23 @@ Ta-ra! 🌸`
         const mailOptions = {
             from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
             to: email,
-            subject: 'Password Reset Code - Taunton Girl XOXO',
+            subject: 'Password Reset Code - Gossip Girl XOXO',
             html: `
                 <!DOCTYPE html>
                 <html lang="en">
                 <head>
                     <meta charset="UTF-8">
                     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Password Reset - Taunton Girl</title>
+                    <title>Password Reset - Gossip Girl</title>
                     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
                 </head>
                 <body style="margin: 0; padding: 0; font-family: 'Cormorant Garamond', serif; color: #2C1810; background-color: #F7F3E3;">
                     <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
                         <div style="text-align: center; margin-bottom: 30px;">
                             <h1 style="font-family: 'Playfair Display', serif; color: #2C5530; margin: 0; font-size: 36px; font-weight: 700;">
-                                <span style="color: #C9A227;">✧</span> Taunton Girl <span style="color: #C9A227;">✧</span>
+                                <span style="color: #C9A227;">✧</span> Gossip Girl <span style="color: #C9A227;">✧</span>
                             </h1>
-                            <p style="font-style: italic; color: #1B4965; margin-top: 5px; font-size: 18px;">Your exclusive source into Somerset's finest</p>
+                            <p style="font-style: italic; color: #1B4965; margin-top: 5px; font-size: 18px;">Your one and only source into the scandalous lives of Manhattan's elite</p>
                         </div>
                         
                         <div style="background-color: #ffffff; border-left: 4px solid #2C5530; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(44, 85, 48, 0.2);">
@@ -1180,11 +1217,11 @@ Ta-ra! 🌸`
                             </h2>
                             
                             <p style="font-size: 17px; line-height: 1.6; color: #2C1810; margin-bottom: 25px; font-weight: 500;">
-                                Well well well, ${user.username}... seems you've misplaced your key to our little world of Somerset whispers. Not to worry, we all have our forgetful moments – though Taunton Girl never forgets a juicy secret!
+                                Well well well, ${user.username}... seems you've misplaced your key to our little world of Manhattan whispers. Not to worry, we all have our forgetful moments – though Gossip Girl never forgets a juicy secret!
                             </p>
                             
                             <p style="font-size: 17px; line-height: 1.6; color: #2C1810; margin-bottom: 25px; font-weight: 500;">
-                                Use this exclusive code to reset your password and regain access to all the Somerset tea:
+                                Use this exclusive code to reset your password and regain access to all the Manhattan tea:
                             </p>
                             
                             <div style="text-align: center; margin: 30px 0;">
@@ -1211,10 +1248,10 @@ Ta-ra! 🌸`
                                 Kisses from the West Country,
                             </p>
                             <p style="font-family: 'Playfair Display', serif; color: #2C5530; font-size: 24px; margin: 5px 0 0 0; font-weight: 700;">
-                                Taunton Girl
+                                Gossip Girl
                             </p>
                             <p style="font-family: 'Cormorant Garamond', serif; color: #1B4965; font-size: 16px; margin: 20px 0 0 0; font-weight: 500;">
-                                <em>Remember, in Somerset, every tale finds its way to Taunton Girl</em>
+                                <em>Remember, on the Upper East Side, every scandal finds its way to Gossip Girl</em>
                             </p>
                         </div>
                     </div>
@@ -1242,9 +1279,9 @@ Ta-ra! 🌸`
 app.post('/verify-code', (req, res) => {
     if (!isEmailSystemEnabled()) {
         return res.render('error', { 
-            error: `Greetings from Taunton Girl!
+            error: `Greetings from Gossip Girl!
             
-Your trusted source for all the whispers and secrets of Somerset's finest.
+Your trusted source for all the whispers and secrets of Manhattan's elite.
 
 The email system is taking a lovely countryside break at the moment, darling. Perhaps a stroll through Vivary Park might clear your mind?
 
@@ -1278,9 +1315,9 @@ Ta-ra! 🌸`
 app.post('/reset-password', async (req, res) => {
     if (!isEmailSystemEnabled()) {
         return res.render('error', { 
-            error: `Greetings from Taunton Girl!
+            error: `Greetings from Gossip Girl!
             
-Your trusted source for all the whispers and secrets of Somerset's finest.
+Your trusted source for all the whispers and secrets of Manhattan's elite.
 
 The email system is taking a lovely countryside break at the moment, darling. Perhaps a stroll through Vivary Park might clear your mind?
 
@@ -1481,23 +1518,23 @@ app.post('/admin/invites/send-all', requireAdmin, async (req, res) => {
                 const mailOptions = {
                     from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
                     to: invite.email,
-                    subject: 'Exclusive Invitation - Taunton Girl',
+                    subject: 'Exclusive Invitation - Gossip Girl',
                     html: `
                         <!DOCTYPE html>
                         <html lang="en">
                         <head>
                             <meta charset="UTF-8">
                             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>Exclusive Invitation - Taunton Girl</title>
+                            <title>Exclusive Invitation - Gossip Girl</title>
                             <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet">
                         </head>
                         <body style="margin: 0; padding: 0; font-family: 'Cormorant Garamond', serif; color: #2C1810; background-color: #F7F3E3;">
                             <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
                                 <div style="text-align: center; margin-bottom: 30px;">
                                     <h1 style="font-family: 'Playfair Display', serif; color: #2C5530; margin: 0; font-size: 36px; font-weight: 700;">
-                                        <span style="color: #C9A227;">✧</span> Taunton Girl <span style="color: #C9A227;">✧</span>
+                                        <span style="color: #C9A227;">✧</span> Gossip Girl <span style="color: #C9A227;">✧</span>
                                     </h1>
-                                    <p style="font-style: italic; color: #1B4965; margin-top: 5px; font-size: 18px;">Your exclusive source into Somerset's finest</p>
+                                    <p style="font-style: italic; color: #1B4965; margin-top: 5px; font-size: 18px;">Your one and only source into the scandalous lives of Manhattan's elite</p>
                                 </div>
                                 
                                 <div style="background-color: #ffffff; border-left: 4px solid #2C5530; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(44, 85, 48, 0.2);">
@@ -1510,11 +1547,11 @@ app.post('/admin/invites/send-all', requireAdmin, async (req, res) => {
                                     </p>
                                     
                                     <p style="font-size: 17px; line-height: 1.6; color: #2C1810; margin-bottom: 25px; font-weight: 500;">
-                                        Word has reached Taunton Girl that you are just the sort of discerning individual who appreciates the finer whispers of Somerset society. How fortunate that our paths should cross!
+                                        Word has reached Gossip Girl that you are just the sort of discerning individual who appreciates the finer whispers of Upper East Side society. How fortunate that our paths should cross!
                                     </p>
                                     
                                     <p style="font-size: 17px; line-height: 1.6; color: #2C1810; margin-bottom: 25px; font-weight: 500;">
-                                        I am <em>personally</em> extending an invitation for you to join our exclusive circle of confidants. Together, we'll share the delicious tales that make Somerset's social scene simply <em>divine</em>.
+                                        I am <em>personally</em> extending an invitation for you to join our exclusive circle of confidants. Together, we'll share the delicious tales that make Manhattan's social scene simply <em>divine</em>.
                                     </p>
                                     
                                     <div style="text-align: center; margin: 30px 0;">
@@ -1548,7 +1585,7 @@ app.post('/admin/invites/send-all', requireAdmin, async (req, res) => {
                                     </p>
                                     
                                     <p style="font-size: 17px; line-height: 1.6; color: #2C1810; font-weight: 500; margin-top: 20px;">
-                                        Do hurry, darling. In Somerset, the most delicious gossip never waits.
+                                        Do hurry, darling. In Manhattan, the most delicious gossip never waits.
                                     </p>
 
                                      <p style="font-size: 16px; line-height: 1.4; color: #2C1810; font-style: italic; margin-bottom: 15px; background-color: #FFF8E8; padding: 10px; border-left: 2px solid #C9A227;">
@@ -1561,10 +1598,10 @@ app.post('/admin/invites/send-all', requireAdmin, async (req, res) => {
                                         Kisses from the West Country,
                                     </p>
                                     <p style="font-family: 'Playfair Display', serif; color: #2C5530; font-size: 24px; margin: 5px 0 0 0; font-weight: 700;">
-                                        Taunton Girl
+                                        Gossip Girl
                                     </p>
                                     <p style="font-family: 'Cormorant Garamond', serif; color: #1B4965; font-size: 16px; margin: 20px 0 0 0; font-weight: 500;">
-                                        <em>Remember, in Somerset, every tale finds its way to Taunton Girl</em>
+                                        <em>Remember, on the Upper East Side, every scandal finds its way to Gossip Girl</em>
                                     </p>
                                 </div>
                             </div>

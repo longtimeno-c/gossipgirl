@@ -3,7 +3,7 @@
         <div class="card post-card">
             <div class="card-body p-5">
                 <h2 class="text-center mb-4">
-                    <i class="fas fa-envelope-open-text me-2" style="color: var(--accent-gold);"></i>
+                    <i class="fas fa-envelope-open-text me-2" style="color: var(--gg-accent);"></i>
                     Verify Your Email
                 </h2>
                 <% if (error) { %>
@@ -22,7 +22,7 @@
                     <div class="mb-4">
                         <label for="code" class="form-label">Verification Code</label>
                         <div class="input-group">
-                            <span class="input-group-text" style="background-color: var(--taunton-green); color: var(--cream);">
+                            <span class="input-group-text" style="background-color: var(--gg-dark); color: white;">
                                 <i class="fas fa-lock"></i>
                             </span>
                             <input type="text" class="form-control" id="code" name="code" 
@@ -40,7 +40,7 @@
                 <div class="text-center mt-4">
                     <p class="mb-0">
                         Didn't receive the code? 
-                        <a href="/register" class="text-decoration-none" style="color: var(--somerset-blue);">
+                        <a href="/register" class="text-decoration-none" style="color: var(--gg-secondary);">
                             Register again
                         </a>
                     </p>
@@ -53,18 +53,18 @@
 <style>
     .card {
         background: rgba(255, 255, 255, 0.95);
-        border-left: 4px solid var(--taunton-green);
+        border-left: 4px solid var(--gg-dark);
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(44, 85, 48, 0.2);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
     
     .btn-dark {
-        background-color: var(--taunton-green);
-        border-color: var(--taunton-green);
+        background-color: var(--gg-dark);
+        border-color: var(--gg-dark);
     }
     
     .btn-dark:hover {
-        background-color: #1A4022;
-        border-color: #1A4022;
+        background-color: var(--gg-accent);
+        border-color: var(--gg-accent);
     }
 </style> 

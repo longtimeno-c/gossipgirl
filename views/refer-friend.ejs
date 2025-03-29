@@ -3,10 +3,10 @@
         <div class="card shadow">
             <div class="card-body">
                 <h2 class="text-center mb-4"><i class="fas fa-user-plus me-2"></i> Refer a Friend</h2>
-                <p class="text-center mb-4">Think someone should join our exclusive Somerset circle? Enter their email below to send them an invitation.</p>
+                <p class="text-center mb-4">Think someone deserves to join our exclusive Manhattan society? Enter their email below to send them an invitation.</p>
                 
                 <div class="alert alert-info mb-4">
-                    <i class="fas fa-info-circle me-2"></i> <strong>Note:</strong> All friend referrals will be reviewed by our admins before invitations are sent. Only the most suitable candidates will receive an invitation to join our exclusive circle.
+                    <i class="fas fa-info-circle me-2"></i> <strong>Note:</strong> All friend referrals will be reviewed by our admins before invitations are sent. Only the most suitable candidates will receive an invitation to join Manhattan's elite.
                 </div>
                 
                 <form id="referForm" class="needs-validation" data-no-spinner="true" novalidate>
@@ -61,7 +61,7 @@
                         title: 'Referral Submitted!',
                         text: 'Your friend\'s email has been sent to our admins for review. If approved, they will receive an invitation to join our exclusive circle.',
                         icon: 'success',
-                        confirmButtonColor: '#2C5530'
+                        confirmButtonColor: '#1a1a1a'
                     });
                     
                     // Reset the form
@@ -72,7 +72,7 @@
                         title: 'Oops!',
                         text: data.message || 'Something went wrong. Please try again.',
                         icon: 'error',
-                        confirmButtonColor: '#2C5530'
+                        confirmButtonColor: '#1a1a1a'
                     });
                 }
             } catch (error) {
@@ -80,7 +80,7 @@
                     title: 'Oops!',
                     text: 'An error occurred while processing your request.',
                     icon: 'error',
-                    confirmButtonColor: '#2C5530'
+                    confirmButtonColor: '#1a1a1a'
                 });
             }
         });
